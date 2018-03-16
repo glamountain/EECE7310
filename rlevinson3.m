@@ -15,12 +15,13 @@ if ~exist('M', 'var')
 end
 
 % Initialize outputs
-ki = zeros(M,1);
+ki = zeros(M-1,1);
 
 % Perform recursion
-for m = 1:M
-    ki(m) = Am(1);
-    Am = (Am + ki(m)*flipud(Am)) ./ (1-abs(ki(m))^2);
+for m = M:-1:2
+    ki(m-1) = -Am(m);
+    Am = (Am + ki(m-1)*flipud(Am)) ./ (1-abs(ki(m-1))^2);
+    Am(end) = [];
 end
 
 end
