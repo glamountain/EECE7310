@@ -3,12 +3,10 @@ close all
 
 %% Problem 2
 
-N = 10;
-
-g = @(x)(exp(x));
+N = 1e4; % Number of values of Kappa
 
 Mx = 1;
-num = 2*Mx + 1;
+g = @(x)(exp(x));
 
 for a = [0.5,2]
     
@@ -24,7 +22,7 @@ for a = [0.5,2]
     
     for i = 1:N
         
-        K(i) = (-Mx + i);
+        K(i) = (-Mx + i/(N/10));
         
         x1_til = sqrt((Mx + K(i))*sigx2);
         x = [mux - x1_til, mux, mux + x1_til];
@@ -49,14 +47,14 @@ for a = [0.5,2]
     subplot(2,1,1);
     plot(K, muy_hat,'LineWidth',lw); hold on
     plot(K, muy * ones(1,N), '--r','LineWidth',lw);
-    title(sprintf('$\\mu_{y}$ for a=%0.2f, Best estimate at $\\kappa=%d$',a,K(opt_mu)),'FontSize',fs)
+    title(sprintf('$\\mu_{y}$ for a=%0.2f, Best estimate at $\\kappa=%0.2f$',a,K(opt_mu)),'FontSize',fs)
     legend({'$\hat{\mu_{y}}$','$\mu_{y}$'},'Location','NorthWest','FontSize',fs)
     xlabel('$\kappa$','FontSize',fs);
     
     subplot(2,1,2);
     plot(K, sigy2_hat,'LineWidth',lw); hold on
     plot(K, sigy2 * ones(1,N), '--r','LineWidth',lw);
-    title(sprintf('$\\sigma^{2}_{y}$ for a=%0.2f, Best estimate at $\\kappa=%d$',a,K(opt_var)),'FontSize',fs)
+    title(sprintf('$\\sigma^{2}_{y}$ for a=%0.2f, Best estimate at $\\kappa=%0.2f$',a,K(opt_var)),'FontSize',fs)
     legend({'$\hat{\sigma^{2}_{y}}$','$\sigma^{2}_{y}$'},'Location','NorthWest','FontSize',fs)
     xlabel('$\kappa$','FontSize',fs);
     
